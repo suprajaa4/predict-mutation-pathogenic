@@ -44,17 +44,19 @@ def main():
 
     metrics = {"n_rows": int(len(df)), "pos_rate": float(y.mean()), "models": {}, "features": {"cons": CONS, "full": FULL}}
 
-    # LogReg baseline (conservation only)
+    # LogReg
     lr_cons = Pipeline([("scaler", StandardScaler()), ("clf", LogisticRegression(max_iter=2000))])
     lr_cons.fit(train_df[CONS], y_train)
     pr1 = lr_cons.predict_proba(test_df[CONS])[:, 1]
     metrics["models"]["logreg_cons"] = eval_probs(y_test, pr1)
+    
+    #plots
     plot_roc(y_test, pr1, f"{p.figures_dir}/roc_logreg_cons.png")
     plot_pr(y_test, pr1, f"{p.figures_dir}/pr_logreg_cons.png")
     plot_calibration(y_test, pr1, f"{p.figures_dir}/cal_logreg_cons.png")
     joblib.dump(lr_cons, f"{p.models_dir}/logreg_cons.joblib")
 
-    # XGB full
+    # XGBoost
     xgb = XGBClassifier(
         n_estimators=400, max_depth=4, learning_rate=0.05,
         subsample=0.8, colsample_bytree=0.8,
@@ -63,12 +65,13 @@ def main():
     xgb.fit(train_df[FULL], y_train)
     pr2 = xgb.predict_proba(test_df[FULL])[:, 1]
     metrics["models"]["xgb_full"] = eval_probs(y_test, pr2)
+    #plots
     plot_roc(y_test, pr2, f"{p.figures_dir}/roc_xgb_full.png")
     plot_pr(y_test, pr2, f"{p.figures_dir}/pr_xgb_full.png")
     plot_calibration(y_test, pr2, f"{p.figures_dir}/cal_xgb_full.png")
     joblib.dump(xgb, f"{p.models_dir}/xgb_full.joblib")
 
-    # Save importance + predictions
+    #results
     pd.DataFrame({"feature": FULL, "importance": xgb.feature_importances_})\
       .sort_values("importance", ascending=False)\
       .to_csv(f"{p.results_dir}/xgb_feature_importance.csv", index=False)
@@ -84,3 +87,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
