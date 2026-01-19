@@ -10,32 +10,29 @@ In this project, I built an end-to-end machine learning pipeline to:
 * Construct a  missense variant dataset from ClinVar and extract protein-level features using Ensembl VEP
 * Train and evaluate models to predict variant pathogenicity and interpret feature importance 
 
-### What is a missense mutation?
+### Why missense mutation?
 
-A missense mutation is a single nucleotide change that results in the substitution of one amino acid for another in a protein. Depending on where it occurs and how drastic the change is, it may disrupt protein folding, affect catalytic or binding sites or have little to no functional effect
+A missense mutation is a single nucleotide change that results in the substitution of one amino acid for another in a protein. Depending on where  and how drastic the change is, it may disrupt protein folding, affect catalytic or binding sites or have little to no functional effect
 
-### Why is this hard to predict?
-
-Protein function depends on:
+It's hard to predict as protein function depends on:
 
 * **Evolutionary conservation** (important residues are conserved)
 * **Physicochemical changes** (e.g. charge, size, hydrophobicity)
 * **Protein context** (position within domains or motifs)
 
-No single feature is sufficient — models must combine multiple biological signals.
+No single feature is sufficient so models must combine multiple biological signals.
 
 
 
 ## Datasets used
 
-## ClinVar (VCF)
 
 used the **ClinVar GRCh37 VCF** as the raw data source. ClinVar is a public database that aggregates variant interpretations submitted by clinical labs and expert panels.
 
 Each variant includes: Genomic coordinates, Reference and alternate alleles and Clinical significance (e.g. Benign, Pathogenic)
 
 
-### Label construction
+### Label construction- preprocessing
 
 
 * **Benign / Likely benign → label = 0**
