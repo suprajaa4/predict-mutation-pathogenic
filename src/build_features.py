@@ -11,9 +11,8 @@ from tqdm import tqdm
 from .config import Paths
 
 
-# -----------------------------
 # Grantham distance (full matrix)
-# -----------------------------
+
 _AA_ORDER = ["A","R","N","D","C","Q","E","G","H","I","L","K","M","F","P","S","T","W","Y","V"]
 _GRANTHAM = [
     [0,112,111,126,195, 91,107, 60, 86, 94, 96,106, 84,113, 27, 99, 58,148,112, 64],
@@ -51,9 +50,7 @@ def grantham_distance(ref_aa, alt_aa) -> float:
     return float(_GRANTHAM[_AA_IDX[r]][_AA_IDX[a]])
 
 
-# -----------------------------
-# VEP helpers
-# -----------------------------
+
 def normalize_chrom_for_vep(chrom: str) -> str:
     c = str(chrom).strip()
     if c.lower().startswith("chr"):
@@ -153,9 +150,6 @@ def extract_missense_tc(rec: dict) -> dict | None:
     return None
 
 
-# -----------------------------
-# Main
-# -----------------------------
 def main():
     p = Paths()
     ap = argparse.ArgumentParser()
@@ -178,7 +172,7 @@ def main():
         raise ValueError(f"Expected columns {sorted(need)} in {args.variants}, got {list(df.columns)}")
 
 
-    # --- STRICT SNV FILTER (fixes your '-' problem) ---
+
     VALID = {"A", "C", "G", "T"}
     df["ref"] = df["ref"].astype(str).str.upper().str.strip()
     df["alt"] = df["alt"].astype(str).str.upper().str.strip()
@@ -190,7 +184,7 @@ def main():
         "This likely means your preprocess output has ref/alt like '-' '.' or multi-allelic values.\n"
         "Inspect a few rows of variants.parquet to confirm.")
 
-    # NOW apply max_rows
+
     if args.max_rows:
         df = df.head(args.max_rows).copy()
 
@@ -287,3 +281,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
