@@ -1,0 +1,26 @@
+{
+  "n_rows": 682,
+  "pos_rate": 0.15542521994134897,
+  "models": {
+    "logreg_cons": {
+      "roc_auc": 0.7688834154351396,
+      "pr_auc": 0.3554011377139857
+    },
+    "xgb_full": {
+      "roc_auc": 0.9376026272577996,
+      "pr_auc": 0.7896328646248364
+    }
+  },
+  "features": {
+    "cons": [
+      "grantham",
+      "aa_pos"
+    ],
+    "full": [
+      "grantham",
+      "aa_pos",
+      "sift_score",
+      "polyphen_score"
+    ]
+  }
+}
