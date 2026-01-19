@@ -27,10 +27,10 @@ Each variant includes: Genomic coordinates, Reference and alternate alleles and 
 ### Label construction- preprocessing
 
 
-* **Benign / Likely benign → label = 0**
-* **Pathogenic / Likely pathogenic → label = 1**
+* **Benign / Likely benign label = 0**
+* **Pathogenic / Likely pathogenic  label = 1**
 
-Variants with conflicting or uncertain interpretations are excluded.
+(Variants with conflicting or uncertain interpretations are excluded)
 
 After preprocessing:
 
