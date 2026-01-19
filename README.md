@@ -18,6 +18,7 @@ It's hard to predict as protein function depends on evolutionary conservation or
 
 ## Datasets used
 
+https://ftp.ncbi.nlm.nih.gov/pub/clinvar/vcf_GRCh37/clinvar.vcf.gz
 
 used the **ClinVar GRCh37 VCF** as the raw data source. ClinVar is a public database that aggregates variant interpretations submitted by clinical labs and expert panels.
 
