@@ -21,17 +21,14 @@ def parse_info(info: str) -> dict:
 def normalize_clnsig(raw: str) -> str | None:
     if raw is None:
         return None
-    # CLNSIG often has comma-separated values for multiple submissions.
-    # We'll treat any clear benign-ish as NEG and any clear pathogenic-ish as POS,
-    # and drop conflicting/uncertain.
     s = raw
 
-    # Drop clearly noisy categories
+    # noisy categories
     bad = ["Conflicting_interpretations", "Uncertain_significance"]
     if any(b in s for b in bad):
         return None
 
-    # If it contains both benign and pathogenic tokens → ambiguous
+    #ambiguous
     has_pos = ("Pathogenic" in s) or ("Likely_pathogenic" in s)
     has_neg = ("Benign" in s) or ("Likely_benign" in s)
     if has_pos and has_neg:
@@ -61,16 +58,12 @@ def main():
                 continue
             if len(ref) != 1 or len(alt) != 1:
                 continue
-
             info_d = parse_info(info)
             clnsig = info_d.get("CLNSIG")
             bucket = normalize_clnsig(clnsig)
             if bucket is None:
                 continue
-
             label = 1 if bucket == "POS" else 0
-
-            # VCF positions are 1-based already
             rows.append({
                 "chrom": str(chrom),
                 "pos": int(pos),
@@ -89,3 +82,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
