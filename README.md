@@ -14,15 +14,7 @@ In this project, I built an end-to-end machine learning pipeline to:
 
 A missense mutation is a single nucleotide change that results in the substitution of one amino acid for another in a protein. Depending on where  and how drastic the change is, it may disrupt protein folding, affect catalytic or binding sites or have little to no functional effect
 
-It's hard to predict as protein function depends on:
-
-* **Evolutionary conservation** (important residues are conserved)
-* **Physicochemical changes** (e.g. charge, size, hydrophobicity)
-* **Protein context** (position within domains or motifs)
-
-No single feature is sufficient so models must combine multiple biological signals.
-
-
+It's hard to predict as protein function depends on evolutionary conservation or physicochemical changes. No single feature is sufficient so models must combine multiple biological signals.
 
 ## Datasets used
 
@@ -53,10 +45,10 @@ Features are extracted using **Ensembl Variant Effect Predictor (VEP)** on the G
 
 Protein-level features are extracted using **Ensembl Variant Effect Predictor (VEP)**:
 
-* **Grantham distance** – how different the two amino acids are
-* **Protein position** – amino acid index in the protein
-* **SIFT score** – conservation-based deleteriousness score
-* **PolyPhen score** – predicted structural/functional impact
+* **Grantham distance** : how different the two amino acids are
+* **Protein position** : amino acid index in the protein
+* **SIFT score** : conservation-based deleteriousness score
+* **PolyPhen score** : predicted structural/functional impact
 
 Only variants annotated as **missense** are used for modeling.
 
@@ -78,7 +70,7 @@ Because pathogenic variants are rare, reported:
 * **Precision–Recall AUC** (more informative for imbalance)
 * **Calibration curves** (probability reliability)
 
----
+
 
 ##  Results
 The baseline logistic regression performs reasonably well, showing that simple protein-level features already carry signal.
