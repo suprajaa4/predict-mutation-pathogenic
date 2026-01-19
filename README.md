@@ -8,11 +8,9 @@ Single nucleotide variants (SNVs) that alter protein sequences (missense mutatio
 In this project, I built an end-to-end machine learning pipeline to:
 
 * Construct a  missense variant dataset from ClinVar and extract protein-level features using Ensembl VEP
-* Train and evaluate models to predict variant pathogenicity and interpret feature importance in a biologically meaningful way
+* Train and evaluate models to predict variant pathogenicity and interpret feature importance 
 
 The emphasis is on **interpretability, correctness, and reproducibility**, rather than deep learning complexity.
-
-##  Background (Beginner-Friendly)
 
 ### What is a missense mutation?
 
@@ -57,61 +55,24 @@ After preprocessing:
 
 Features are extracted using **Ensembl Variant Effect Predictor (VEP)** on the GRCh37 assembly.
 
-### Protein-level features used
 
-| Feature               | Description                                         |
-| --------------------- | --------------------------------------------------- |
-| **Grantham distance** | Physicochemical severity of amino acid substitution |
-| **Protein position**  | Amino acid index within the protein                 |
-| **SIFT score**        | Conservation-based deleteriousness predictor        |
-| **PolyPhen score**    | Structure/function impact predictor                 |
+Protein-level features are extracted using **Ensembl Variant Effect Predictor (VEP)**:
 
+* **Grantham distance** – how different the two amino acids are
+* **Protein position** – amino acid index in the protein
+* **SIFT score** – conservation-based deleteriousness score
+* **PolyPhen score** – predicted structural/functional impact
 
+Only variants annotated as **missense** are used for modeling.
 
-Only **missense variants with valid amino acid changes** are retained for modeling
+## Models
 
+Two models are trained:
 
+* **Logistic regression** using Grantham distance and protein position as a simple baseline
+* **XGBoost** using all features to capture nonlinear interactions
 
-##  Project Structure
-
-```
-mutation-effect-predictor/
-│
-├── data/
-│   ├── raw/                # ClinVar VCF
-│   ├── processed/          # Labeled SNVs, ML table
-│   └── external/           # VEP-derived features
-│
-├── src/
-│   ├── preprocess_vcf.py   # Build labeled SNV dataset
-│   ├── build_features.py   # Call VEP, extract missense features
-│   ├── merge_ml_table.py   # Join labels + features
-│   └── train.py            # Train and evaluate models
-│
-├── results/
-│   ├── figures/            # ROC, PR, calibration plots
-│   └── metrics.json
-│
-└── README.md
-```
-
-
-
-##  Models
-
-
-
- 1️. Logistic Regression 
-
-* Features: Grantham distance + protein position
-* Purpose: establish a simple, interpretable baseline
-
- 2️. XGBoost (nonlinear)
-
-* Features: all four protein-level features
-* Captures nonlinear interactions (e.g. conserved + drastic change)
-
-(Class imbalance is handled via weighting)
+Because pathogenic variants are rarer, evaluation focuses on both ROC-AUC and precision–recall.
 
 
 ##  Evaluation Metrics
@@ -125,6 +86,9 @@ Because pathogenic variants are rare, reported:
 ---
 
 ##  Results
+The baseline logistic regression performs reasonably well, showing that simple protein-level features already carry signal.
+
+The XGBoost model performs much better, especially in precision–recall space, indicating that combining conservation scores with protein context improves prediction.
 
 ### Model performance (missense-only dataset)
 
@@ -145,14 +109,14 @@ The nonlinear model provides a large performance gain, indicating strong feature
 | Protein position   | ~0.12      |
 | Grantham distance  | ~0.08      |
 
-#### Interpretation
 
-* Conservation-based predictors dominate, as expected biologically
-* Protein position adds contextual signal
-* Physicochemical severity alone is informative but insufficient
+Feature importance from XGBoost shows:
 
-This ordering aligns with domain knowledge and increases confidence in the model.
+* SIFT is the most important feature-Conservation-based predictors dominate, as expected biologically
+* PolyPhen adds additional signal (position importance)
+* Protein position and Grantham distance contribute smaller but meaningful effects
 
+Overall, the results align with biological expectations: conserved positions and functionally disruptive changes are more likely to be pathogenic.
 
 
 ##  Limitations
