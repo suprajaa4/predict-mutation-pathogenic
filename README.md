@@ -3,18 +3,16 @@
 
 **Predicting pathogenic vs benign missense variants using biological features**
 
-Single nucleotide variants (SNVs) that alter protein sequences (missense mutations) are a major cause of inherited disease. However, many are benign. Accurately distinguishing **pathogenic** from **benign** variants is a central problem in medical genomics.
+Why missense mutation?
+
+A missense mutation is a single nucleotide change that results in the substitution of one amino acid for another in a protein. Depending on where  and how drastic the change is, it may disrupt protein folding, affect catalytic or binding sites or have little to no functional effect. They are a major cause of inherited disease. However, many are benign. Accurately distinguishing **pathogenic** from **benign** variants is a central problem in medical genomics.
+
+It's hard to predict as protein function depends on evolutionary conservation or physicochemical changes. No single feature is sufficient so models must combine multiple biological signals.
 
 In this project, I built an end-to-end machine learning pipeline to:
 
 * Construct a  missense variant dataset from ClinVar and extract protein-level features using Ensembl VEP
 * Train and evaluate models to predict variant pathogenicity and interpret feature importance 
-
-Why missense mutation?
-
-A missense mutation is a single nucleotide change that results in the substitution of one amino acid for another in a protein. Depending on where  and how drastic the change is, it may disrupt protein folding, affect catalytic or binding sites or have little to no functional effect
-
-It's hard to predict as protein function depends on evolutionary conservation or physicochemical changes. No single feature is sufficient so models must combine multiple biological signals.
 
 **Datasets used**
 
