@@ -10,13 +10,13 @@ In this project, I built an end-to-end machine learning pipeline to:
 * Construct a  missense variant dataset from ClinVar and extract protein-level features using Ensembl VEP
 * Train and evaluate models to predict variant pathogenicity and interpret feature importance 
 
-### Why missense mutation?
+Why missense mutation?
 
 A missense mutation is a single nucleotide change that results in the substitution of one amino acid for another in a protein. Depending on where  and how drastic the change is, it may disrupt protein folding, affect catalytic or binding sites or have little to no functional effect
 
 It's hard to predict as protein function depends on evolutionary conservation or physicochemical changes. No single feature is sufficient so models must combine multiple biological signals.
 
-## Datasets used
+**Datasets used**
 
 https://ftp.ncbi.nlm.nih.gov/pub/clinvar/vcf_GRCh37/clinvar.vcf.gz
 
@@ -30,7 +30,7 @@ After preprocessing:
 * **~12–15% pathogenic**, reflecting imbalance
 
 
-##  Features
+**Features**
 
 Features are extracted using **Ensembl Variant Effect Predictor (VEP)** on the GRCh37 assembly.
 
@@ -41,9 +41,9 @@ Protein-level features are extracted using **Ensembl Variant Effect Predictor (V
 * **SIFT score** : conservation-based deleteriousness score
 * **PolyPhen score** : predicted structural/functional impact
 
-Only variants annotated as **missense** are used for modeling.
+Only variants annotated as "missense" are used for modeling.
 
-## Models
+**Models**
 
 Two models are trained:
 
@@ -52,23 +52,12 @@ Two models are trained:
 
 Because pathogenic variants are rarer, evaluation focuses on both ROC-AUC and precision–recall.
 
-
-##  Evaluation Metrics
-
-Because pathogenic variants are rare, reported:
-
-* **ROC-AUC** (overall ranking ability)
-* **Precision–Recall AUC** (more informative for imbalance)
-* **Calibration curves** (probability reliability)
-
-
-
-##  Results
+**Results**
 The baseline logistic regression performs reasonably well, showing that simple protein-level features already carry signal.
 
 The XGBoost model performs much better, especially in precision–recall space, indicating that combining conservation scores with protein context improves prediction.
 
-### Model performance (missense-only dataset)
+**Model performance**
                
  Logistic regression :
  ROC-AUC: ~0.77 ,  PR-AUC :~0.36     
@@ -78,13 +67,12 @@ The XGBoost model performs much better, especially in precision–recall space, 
 The nonlinear model provides a large performance gain, indicating strong feature interactions.
 
 
-### Feature importance (XGBoost)
+**Feature importance (XGBoost)**
            
- **SIFT score** : ~0.63      
- **PolyPhen score**:  ~0.17      
+**SIFT score** : ~0.63      
+**PolyPhen score**:  ~0.17      
 Protein position: ~0.12      
 Grantham distance:  ~0.08  
-
 
 Feature importance from XGBoost shows:
 
@@ -95,7 +83,7 @@ Feature importance from XGBoost shows:
 Overall, the results align with biological expectations: conserved positions and functionally disruptive changes are more likely to be pathogenic.
 
 
-##  Limitations
+**Limitations**
 
 * Conservation features are derived from existing predictors, not raw MSAs
 * Structural features (like, solvent accessibility) are not yet included
@@ -103,7 +91,7 @@ Overall, the results align with biological expectations: conserved positions and
 * ClinVar labels may contain noise
 
 
-##  References
+**References**
 
 1. Landrum et al., *ClinVar: improving access to variant interpretations*, Nucleic Acids Research
 2. McLaren et al., *The Ensembl Variant Effect Predictor*, Genome Biology
