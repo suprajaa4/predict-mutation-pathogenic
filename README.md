@@ -1,7 +1,7 @@
 
 #  Mutation Effect Predictor 
 
-**Predicting pathogenic vs benign missense variants using biologically interpretable features**
+**Predicting pathogenic vs benign missense variants using biological features**
 
 Single nucleotide variants (SNVs) that alter protein sequences (missense mutations) are a major cause of inherited disease. However, many are benign. Accurately distinguishing **pathogenic** from **benign** variants is a central problem in medical genomics.
 
@@ -100,7 +100,6 @@ Overall, the results align with biological expectations: conserved positions and
 4. Ng & Henikoff, *SIFT*, Nucleic Acids Research
 5. Adzhubei et al., *PolyPhen-2*, Nature Methods
 6. Richards et al., *ACMG guidelines for variant interpretation*, Genetics in Medicine
-
 
 
 Any feedback, please  reach out to Suprajaa V | suprajaav4@gmail.com
