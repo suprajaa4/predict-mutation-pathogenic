@@ -53,6 +53,7 @@ Two models are trained:
 Because pathogenic variants are rarer, evaluation focuses on both ROC-AUC and precision–recall.
 
 **Results**
+
 The baseline logistic regression performs reasonably well, showing that simple protein-level features already carry signal.
 
 The XGBoost model performs much better, especially in precision–recall space, indicating that combining conservation scores with protein context improves prediction.
