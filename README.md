@@ -24,7 +24,7 @@ Each variant includes: Genomic coordinates, Reference and alternate alleles and 
 
 After preprocessing:
 
-* **~1.4 million labeled SNVs**
+* **~1.4 million labeled variants**
 * **~12–15% pathogenic**, reflecting imbalance
 
 
