@@ -24,25 +24,15 @@ used the **ClinVar GRCh37 VCF** as the raw data source. ClinVar is a public data
 
 Each variant includes: Genomic coordinates, Reference and alternate alleles and Clinical significance (e.g. Benign, Pathogenic)
 
-
-### Label construction- preprocessing
-
-
-* **Benign / Likely benign label = 0**
-* **Pathogenic / Likely pathogenic  label = 1**
-
-(Variants with conflicting or uncertain interpretations are excluded)
-
 After preprocessing:
 
 * **~1.4 million labeled SNVs**
 * **~12–15% pathogenic**, reflecting imbalance
 
 
-##  Feature Engineering
+##  Features
 
 Features are extracted using **Ensembl Variant Effect Predictor (VEP)** on the GRCh37 assembly.
-
 
 Protein-level features are extracted using **Ensembl Variant Effect Predictor (VEP)**:
 
@@ -81,7 +71,6 @@ The XGBoost model performs much better, especially in precision–recall space, 
 ### Model performance (missense-only dataset)
 
 | Model               | ROC-AUC   | PR-AUC    |
-| ------------------- | --------- | --------- |
 | Logistic regression | ~0.77     | ~0.36     |
 | **XGBoost**         | **~0.94** | **~0.79** |
 
@@ -91,7 +80,6 @@ The nonlinear model provides a large performance gain, indicating strong feature
 ### Feature importance (XGBoost)
 
 | Feature            | Importance |
-| ------------------ | ---------- |
 | **SIFT score**     | ~0.63      |
 | **PolyPhen score** | ~0.17      |
 | Protein position   | ~0.12      |
