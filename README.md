@@ -69,21 +69,21 @@ The baseline logistic regression performs reasonably well, showing that simple p
 The XGBoost model performs much better, especially in precision–recall space, indicating that combining conservation scores with protein context improves prediction.
 
 ### Model performance (missense-only dataset)
-
-| Model               | ROC-AUC   | PR-AUC    |
-| Logistic regression | ~0.77     | ~0.36     |
-| **XGBoost**         | **~0.94** | **~0.79** |
+               
+ Logistic regression :
+ ROC-AUC: ~0.77 ,  PR-AUC :~0.36     
+ XGBoost:
+ ROC-AUC:~0.94 ,  PR-AUC : ~0.79 
 
 The nonlinear model provides a large performance gain, indicating strong feature interactions.
 
 
 ### Feature importance (XGBoost)
-
-| Feature            | Importance |
-| **SIFT score**     | ~0.63      |
-| **PolyPhen score** | ~0.17      |
-| Protein position   | ~0.12      |
-| Grantham distance  | ~0.08      |
+           
+ **SIFT score** : ~0.63      
+ **PolyPhen score**:  ~0.17      
+Protein position: ~0.12      
+Grantham distance:  ~0.08  
 
 
 Feature importance from XGBoost shows:
